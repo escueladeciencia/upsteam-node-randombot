@@ -1,6 +1,7 @@
 const axios = require('axios');
 const { Client, Intents, MessageEmbed } = require('discord.js');
 
+// Global var to store jam entries
 let entries = []
 
 // Itch.io´s Jam ID
@@ -28,13 +29,13 @@ client.on('messageCreate', async (message) => {
     randomNumber = Math.floor(Math.random() * (entries.data.jam_games.length + 1));
     entry = entries.data.jam_games[randomNumber];
 
-    const exampleEmbed = new MessageEmbed()
+    const entryEmbed = new MessageEmbed()
       .setTitle(entry.game.title)
       .setURL(entry.game.url)
       .setAuthor({ name: entry.game.user.name, iconURL: entry.game.cover, url: entry.game.user.url })
       .setDescription(entry.game.short_text)
       .setThumbnail(entry.game.cover);
-    await message.reply({ embeds: [exampleEmbed] });
+    await message.reply({ embeds: [entryEmbed] });
   }
 });
 
