@@ -17,6 +17,8 @@ const client = new Client({
 client.once('ready', async (client) => {
 	console.log(`Ready! Logged in as ${client.user.tag}`);
   try {
+    // Another useful source: https://itch.io/jam/277043/results.json
+    // it contains all the ratings
     const url = `https://itch.io/jam/${id}/entries.json`;
     entries = await axios.get(url);
   } catch (error) {
