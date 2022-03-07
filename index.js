@@ -36,6 +36,7 @@ client.on('messageCreate', async (message) => {
       .setURL(entry.game.url)
       .setAuthor({ name: entry.game.user.name, iconURL: entry.game.cover, url: entry.game.user.url })
       .setDescription(entry.game.short_text)
+      .setImage(entry.game.cover)
       .setThumbnail(entry.game.cover);
     await message.reply({ embeds: [entryEmbed] });
   }
