@@ -6,9 +6,9 @@ let entries = []
 
 // Itch.io´s Jam ID
 // Look for '<form method="post"' in HTML code
-// Source: https://itch.io/jam/upsteam-2
-// Output: action="/jam/277043/preview">
-const id = 277043;
+// Source: https://itch.io/jam/upsteam-3
+// Output: action="/jam/317307/preview">
+const id = 317307;
 
 const client = new Client({
   intents: [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_MESSAGES]
