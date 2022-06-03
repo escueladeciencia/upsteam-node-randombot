@@ -10,6 +10,7 @@
   "license": "ISC",
   "dependencies": {
     "axios": "^0.26.0",
+    "cheerio": "^1.0.0-rc.11",
     "discord.js": "^13.6.0"
   }
 }
