@@ -1,5 +1,5 @@
 const axios = require('axios');
-const { Client, Intents, MessageEmbed } = require('discord.js');
+const { Client, Intents, MessageEmbed, MessageActionRow, MessageButton } = require('discord.js');
 require('dotenv').config();
 const cron = require('node-cron');
 const cheerio = require('cheerio');
@@ -67,11 +67,29 @@ client.on('messageCreate', async (message) => {
         .setTitle(entry.game.title)
         .setURL(`https://itch.io${entry.url}`)
         .setAuthor({ name: entry.game.user.name, iconURL: entry.game.cover, url: entry.game.user.url })
-        .setDescription(entry.game.short_text)
+        .setDescription(entry.game.short_text || "No hay descripción")
         .setImage(entry.game.cover)
         .setThumbnail(entry.game.cover)
         .setFooter({ text: `😍 ${meta.centro} (${meta.categoria})` });
-      await message.reply({ embeds: [entryEmbed] });
+
+      const videoHTML = await axios.get(`https://itch.io/game/trailer/${entry.game.id}`);
+      const $ = cheerio.load(videoHTML.data.content);
+      const videoURL = $("iframe").attr("src").replace("embed/", "watch?v=");
+
+      const row = new MessageActionRow()
+        .addComponents(
+          new MessageButton()
+            .setURL(`https:${videoURL}`)
+            .setLabel('Video')
+            .setStyle('LINK'),	
+          )
+        .addComponents(
+          new MessageButton()
+            .setURL(`https://itch.io${entry.url}`)
+            .setLabel('Votar')
+            .setStyle('LINK'),	
+          );
+      await message.reply({ embeds: [entryEmbed], components: [row] });
     }
     catch (error) {
       console.log(`Error processing https://itch.io${entry.url}`);
