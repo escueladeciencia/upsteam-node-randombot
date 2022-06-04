@@ -69,7 +69,6 @@ client.on('messageCreate', async (message) => {
         .setAuthor({ name: entry.game.user.name, iconURL: cover, url: entry.game.user.url })
         .setDescription(entry.game.short_text || "No hay descripción")
         .setImage(cover)
-        .setThumbnail(cover)
         .setFooter({ text: `😍 ${meta.centro} (${meta.categoria})` });
 
       const videoHTML = await axios.get(`https://itch.io/game/trailer/${entry.game.id}`);
