@@ -131,3 +131,6 @@ dist
 
 # playground
 playground
+
+# env secrets
+.env
