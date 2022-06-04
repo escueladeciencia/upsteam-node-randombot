@@ -1,16 +1,14 @@
 const axios = require('axios');
 const { Client, Intents, MessageEmbed, MessageActionRow, MessageButton } = require('discord.js');
-require('dotenv').config();
 const cron = require('node-cron');
 const cheerio = require('cheerio');
+require('dotenv').config();
 
 // Global var to store jam entries
 let entries = []
 
 // Itch.io´s Jam ID
 // Look for '<form method="post"' in HTML code
-// Source: https://itch.io/jam/upsteam-3
-// Output: action="/jam/317307/preview">
 const id = process.env.JAM_ID;
 
 const client = new Client({
@@ -56,8 +54,8 @@ client.on('messageCreate', async (message) => {
     // Sort entries by rating_count, putting the lower rated first
     entries.data.jam_games.sort(function(a, b) { return a.rating_count - b.rating_count; });
 
-    // Choose a random entry from the bottom 50% less voted
-    randomNumber = Math.floor(Math.random() * (entries.data.jam_games.length + 1) / 2);
+    // Choose a random entry from the bottom 20% less voted
+    randomNumber = Math.floor(Math.random() * (entries.data.jam_games.length + 1) / 5);
     entry = entries.data.jam_games[randomNumber];
 
     try {
