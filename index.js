@@ -71,28 +71,37 @@ client.on('messageCreate', async (message) => {
         .setImage(cover)
         .setFooter({ text: `😍 ${meta.centro} (${meta.categoria})` });
 
-      const videoHTML = await axios.get(`https://itch.io/game/trailer/${entry.game.id}`);
-      const $ = cheerio.load(videoHTML.data.content);
-      const videoURL = $("iframe").attr("src").replace("embed/", "watch?v=");
+      let row = new MessageActionRow();
 
-      const row = new MessageActionRow()
-        .addComponents(
+      try {
+        // Search for project video
+        const videoHTML = await axios.get(`https://itch.io/game/trailer/${entry.game.id}`);
+        const $ = cheerio.load(videoHTML.data.content);
+        const videoURL = $("iframe").attr("src").replace("embed/", "watch?v=");
+
+        // Add video link
+        row.addComponents(
           new MessageButton()
             .setURL(`https:${videoURL}`)
             .setLabel('Video')
             .setStyle('LINK'),	
-          )
-        .addComponents(
-          new MessageButton()
-            .setURL(`https://itch.io${entry.url}`)
-            .setLabel('Votar')
-            .setStyle('LINK'),	
           );
+      } catch (error) {
+        console.log(`No video in https://itch.io${entry.url}`);
+      }
+
+      // Add project link
+      row.addComponents(
+        new MessageButton()
+          .setURL(`https://itch.io${entry.url}`)
+          .setLabel('Votar')
+          .setStyle('LINK'),	
+        );
+
       await message.reply({ embeds: [entryEmbed], components: [row] });
     }
     catch (error) {
       console.log(`Error processing https://itch.io${entry.url}`);
-      console.error(error);
     }
   }
 });
