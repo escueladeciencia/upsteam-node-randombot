@@ -66,7 +66,7 @@ client.on('messageCreate', async (message) => {
       const entryEmbed = new MessageEmbed()
         .setTitle(entry.game.title)
         .setURL(`https://itch.io${entry.url}`)
-        .setAuthor({ name: entry.game.user.name, iconURL: cover, url: entry.game.user.url })
+        .setAuthor({ name: "entry.game.user.name", url: entry.game.user.url })
         .setDescription(entry.game.short_text || "No hay descripción")
         .setImage(cover)
         .setFooter({ text: `😍 ${meta.centro} (${meta.categoria})` });
