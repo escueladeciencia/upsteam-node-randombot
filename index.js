@@ -61,13 +61,15 @@ client.on('messageCreate', async (message) => {
     try {
       const meta = await getEntryMetadata(entry.url);
 
+      const cover =  entry.game.cover || "https://upsteam.es/wp-content/uploads/2022/06/noimage.png";
+
       const entryEmbed = new MessageEmbed()
         .setTitle(entry.game.title)
         .setURL(`https://itch.io${entry.url}`)
-        .setAuthor({ name: entry.game.user.name, iconURL: entry.game.cover, url: entry.game.user.url })
+        .setAuthor({ name: entry.game.user.name, iconURL: cover, url: entry.game.user.url })
         .setDescription(entry.game.short_text || "No hay descripción")
-        .setImage(entry.game.cover)
-        .setThumbnail(entry.game.cover)
+        .setImage(cover)
+        .setThumbnail(cover)
         .setFooter({ text: `😍 ${meta.centro} (${meta.categoria})` });
 
       const videoHTML = await axios.get(`https://itch.io/game/trailer/${entry.game.id}`);
