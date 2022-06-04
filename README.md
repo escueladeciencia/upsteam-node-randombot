@@ -4,7 +4,7 @@
 
 Ajolote Bot was created to encourage Discord contestants of hackathons like ours ([Up! Steam3](http://upsteam.es "Up! Steam3")) to vote for as many projects as possible during the voting phase.
 
-Every time the bot is invoked, it will retrieve the whole list of hackathon entries and it will publish a random one from the bottom 20% less voted projects.
+Every time the bot is invoked, it will retrieve the whole list of hackathon entries and it will publish a random one from the bottom less voted projects.
 
 ## Instalation
 

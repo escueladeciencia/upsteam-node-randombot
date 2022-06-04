@@ -51,12 +51,14 @@ client.on('messageCreate', async (message) => {
     // Update entries
     await getEntries();
 
+    // Randomize entries
+    entries.data.jam_games.sort(() => Math.random() - 0.5);
+
     // Sort entries by rating_count, putting the lower rated first
     entries.data.jam_games.sort(function(a, b) { return a.rating_count - b.rating_count; });
 
-    // Choose a random entry from the bottom 20% less voted
-    randomNumber = Math.floor(Math.random() * (entries.data.jam_games.length + 1) / 5);
-    entry = entries.data.jam_games[randomNumber];
+    // Choose first entry aka less voted project
+    entry = entries.data.jam_games[0];
 
     try {
       const meta = await getEntryMetadata(entry.url);
