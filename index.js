@@ -11,6 +11,10 @@ let entries = []
 // Look for '<form method="post"' in HTML code
 const id = process.env.JAM_ID;
 
+// Time interval control between two commands to ms
+const interval = process.env.INTERVAL*60*1000;
+let lastTime = new Date(Date.now() - interval);
+
 const client = new Client({
   intents: [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_MESSAGES]
 });
@@ -48,6 +52,14 @@ client.once('ready', async (client) => {
 
 client.on('messageCreate', async (message) => {
   if (message.content === "/karma") {
+    // Check last time
+    const waitingTime = lastTime.getTime() - new Date().getTime() + interval;
+    if (waitingTime > 0) {
+      return message.channel.send(`Tienes que esperar ${Math.round(waitingTime/1000)} segundos para volver a usar el comando.`);
+    } else {
+      lastTime = new Date();
+    }
+      
     // Update entries
     await getEntries();
 

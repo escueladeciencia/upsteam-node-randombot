@@ -12,6 +12,7 @@ Every time the bot is invoked, it will retrieve the whole list of hackathon entr
 
         TOKEN=aabbccddeeff11233445566aabbccddeerr
         JAM_ID=1234567
+		INTERVAL=5
     
 2. Download node packages
 
