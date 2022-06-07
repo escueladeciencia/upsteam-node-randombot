@@ -1,11 +1,12 @@
 const axios = require('axios');
 const cheerio = require('cheerio');
+require('dotenv').config();
 
 const csv = process.argv[2] === '--csv';
 
 (async () => {
     try {
-        const url = `https://itch.io/jam/317307/entries.json`;
+        const url = `https://itch.io/jam/${process.env.JAM_ID}/entries.json`;
         const entries =  await axios.get(url);
         console.log(`Número de equipos: ${entries.data.jam_games.length}`);
         let centros = [];
