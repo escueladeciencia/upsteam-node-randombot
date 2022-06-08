@@ -50,8 +50,13 @@ client.once('ready', async (client) => {
 	console.log(`Ready! Logged in as ${client.user.tag}`);
 });
 
+const commands = ["/karma", "/random", "/top", "/cool"];
+
 client.on('messageCreate', async (message) => {
-  if (message.content === "/karma") {
+  // Get command
+  const command = message.content;
+
+  if (commands.includes(command)) {
     // Check last time
     const waitingTime = lastTime.getTime() - new Date().getTime() + interval;
     if (waitingTime > 0) {
@@ -63,14 +68,35 @@ client.on('messageCreate', async (message) => {
     // Update entries
     await getEntries();
 
-    // Randomize entries
+    // Randomize entries to introduce some entropy
     entries.data.jam_games.sort(() => Math.random() - 0.5);
 
-    // Sort entries by rating_count, putting the lower rated first
-    entries.data.jam_games.sort(function(a, b) { return a.rating_count - b.rating_count; });
+    let entry;
 
-    // Choose first entry aka less voted project
-    entry = entries.data.jam_games[0];
+    switch (command) {
+      case "/karma":
+        // Random entry from 5% less voted projects
+        entries.data.jam_games.sort(function(a, b) { return a.rating_count - b.rating_count; });
+        entry = entries.data.jam_games[Math.floor(entries.data.jam_games.length * 0.05)];
+        break;
+      case "/random":
+        // Random entry
+        entry = entries.data.jam_games[0];
+        break;
+      case "/top":
+        // Random entry from top 5% voted projects
+        entries.data.jam_games.sort(function(a, b) { return b.rating_count - a.rating_count; });
+        entry = entries.data.jam_games[Math.floor(entries.data.jam_games.length * 0.05)];
+        break;
+      case "/cool":
+        // Random entry from top 5% coolest projects
+        entries.data.jam_games.sort(function(a, b) { return b.coolness - a.coolness; });
+        entry = entries.data.jam_games[Math.floor(entries.data.jam_games.length * 0.05)];
+        // nothing to do yet
+        break;
+      default:
+        // nothing to do
+    }
 
     try {
       const meta = await getEntryMetadata(entry.url);
