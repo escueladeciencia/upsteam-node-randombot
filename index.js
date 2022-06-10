@@ -72,26 +72,26 @@ client.on('messageCreate', async (message) => {
     entries.data.jam_games.sort(() => Math.random() - 0.5);
 
     let entry;
-
+    console.log(entries.data.jam_games[0].rating_count);
     switch (command) {
       case "/karma":
-        // Random entry from 5% less voted projects
+        // Random entry from 10% less voted projects
         entries.data.jam_games.sort(function(a, b) { return a.rating_count - b.rating_count; });
-        entry = entries.data.jam_games[Math.floor(entries.data.jam_games.length * 0.05)];
+        entry = entries.data.jam_games[Math.floor(Math.random() * Math.floor(entries.data.jam_games.length * 0.1))];
         break;
       case "/random":
         // Random entry
         entry = entries.data.jam_games[0];
         break;
       case "/top":
-        // Random entry from top 5% voted projects
+        // Random entry from top 10% voted projects
         entries.data.jam_games.sort(function(a, b) { return b.rating_count - a.rating_count; });
-        entry = entries.data.jam_games[Math.floor(entries.data.jam_games.length * 0.05)];
+        entry = entries.data.jam_games[Math.floor(Math.random() * Math.floor(entries.data.jam_games.length * 0.1))];
         break;
       case "/cool":
-        // Random entry from top 5% coolest projects
+        // Random entry from top 10% coolest projects
         entries.data.jam_games.sort(function(a, b) { return b.coolness - a.coolness; });
-        entry = entries.data.jam_games[Math.floor(entries.data.jam_games.length * 0.05)];
+        entry = entries.data.jam_games[Math.floor(Math.random() * Math.floor(entries.data.jam_games.length * 0.1))];
         // nothing to do yet
         break;
       default:
