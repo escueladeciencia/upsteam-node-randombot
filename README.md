@@ -13,6 +13,7 @@ Every time the bot is invoked, it will retrieve the whole list of hackathon entr
         TOKEN=aabbccddeeff11233445566aabbccddeerr
         JAM_ID=1234567
 		INTERVAL=5
+		WINNERS=1563751,1523732,1533047,1548543,1557131,1547724,1547943,1555263,1547138
     
 2. Download node packages
 
@@ -24,6 +25,10 @@ Every time the bot is invoked, it will retrieve the whole list of hackathon entr
 
 ## Usage
 
-Any user can invoke the bot running the only one command  "/karma" from any channel.
+Any user can invoke the bot running any of these commands.
 
-	/karma
+	/karma (10% less voted projects)
+	/random (completely random)
+	/top (top 10% voted projects)
+	/cool (top 10% coolest projects)
+	/winner (random from WINNERS env variable)

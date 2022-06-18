@@ -50,7 +50,7 @@ client.once('ready', async (client) => {
 	console.log(`Ready! Logged in as ${client.user.tag}`);
 });
 
-const commands = ["/karma", "/random", "/top", "/cool"];
+const commands = ["/karma", "/random", "/top", "/cool", "/winner"];
 
 client.on('messageCreate', async (message) => {
   // Get command
@@ -71,8 +71,9 @@ client.on('messageCreate', async (message) => {
     // Randomize entries to introduce some entropy
     entries.data.jam_games.sort(() => Math.random() - 0.5);
 
+    // Entry container for selection
     let entry;
-    console.log(entries.data.jam_games[0].rating_count);
+
     switch (command) {
       case "/karma":
         // Random entry from 10% less voted projects
@@ -93,6 +94,12 @@ client.on('messageCreate', async (message) => {
         entries.data.jam_games.sort(function(a, b) { return b.coolness - a.coolness; });
         entry = entries.data.jam_games[Math.floor(Math.random() * Math.floor(entries.data.jam_games.length * 0.1))];
         // nothing to do yet
+        break;
+      case "/winner":
+        // Random entry from actual winners
+        const winners = process.env.WINNERS.split(',');
+        const randomWinner = winners[Math.floor(Math.random() * Math.floor(winners.length))];
+        entry = entries.data.jam_games[entries.data.jam_games.findIndex(e => e.game.id == randomWinner)];
         break;
       default:
         // nothing to do
