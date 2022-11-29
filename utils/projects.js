@@ -26,7 +26,7 @@ const csv = process.argv[2] === '--csv';
             } catch  {
               videoURL = "";
             }
-            const output = !csv ? `Centro: ${centro} - Equipo: ${equipo}` : `${entry.game.id};${centro};${equipo};${entry.game.title};${entry.game.cover};${entry.game.user.name};${entry.game.url};${categoria};${etapa};${videoURL};https://itch.io${entry.url};${entry.rating_count};${entry.coolness}`;
+            const output = !csv ? `Centro: ${centro} - Equipo: ${equipo}` : `${entry.game.id};${centro};${equipo};${entry.game.title};${entry.game.cover};${entry.game.user.name};${entry.game.url};${entry.game.short_text};${categoria};${etapa};${videoURL};https://itch.io${entry.url};${entry.rating_count};${entry.coolness}`;
             console.log(output);
             centros.push(centro);
         }
