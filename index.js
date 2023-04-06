@@ -37,7 +37,10 @@ async function getEntryMetadata(url) {
 
 async function getEntries() {
   try {
-    // Another useful source: https://itch.io/jam/277043/results.json
+    // Examples:
+    // Up! Steam2: https://itch.io/jam/277043/results.json
+    // Up! Steam3: https://itch.io/jam/317307/results.json
+    // Up! Steam4: https://itch.io/jam/323164/entries.json
     // it contains all the ratings
     const url = `https://itch.io/jam/${id}/entries.json`;
     entries = await axios.get(url);
