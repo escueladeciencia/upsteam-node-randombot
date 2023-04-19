@@ -9,6 +9,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "airtable": "^0.11.6",
     "axios": "^0.26.0",
     "cheerio": "^1.0.0-rc.11",
     "discord.js": "^13.6.0",
